@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <button class="navbar-toggler" type="button" (click)="navbarCollapsed = !navbarCollapsed" [attr.aria-expanded]="!navbarCollapsed" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>
+    <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="collapse navbar-collapse" [ngbCollapse]="navbarCollapsed" id="navbarSupportedContent"> 
+    <ul class="nav navbar-nav">
+      <li><a class="nav-link" routerLink="/home"
+        routerLinkActive="active">Home</a></li>
+        <li><a class="nav-link" routerLink="/about"
+          routerLinkActive="active">About</a></li>
+          <li><a class="nav-link" routerLink="/photos"
+            routerLinkActive="active">ITApi</a></li>
+
+            <li *ngIf="login==undefined"><a class="nav-link" routerLink="/register">Register</a></li>
+            <li *ngIf="login==undefined"><a class="nav-link" routerLink="/login">Login</a></li>
+            <li *ngIf="type=='admin'"><a class="nav-link" routerLink="/admin">Admin</a></li>
+            <li>
+              <a class="nav-link" routerLink="/post"
+                    routerLinkActive="active">Cart</a>
+                  </li>
+            <li *ngIf="type!=undefined"><a class="nav-link" routerLink="/user">Welcome,{{login}}</a></li>
+          
+          </ul>
+    </div>
+    </div>
+    </div>
+   </nav>

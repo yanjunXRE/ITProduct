@@ -1,0 +1,16 @@
+<h2>Welcome to {{title}}</h2>
+<button class="btn btn-primary"  routerLink="subhome2">Add product</button>
+<router-outlet></router-outlet>
+<div class="container">
+    <div  class="row" >
+       <div *ngFor = "let carPart of product">
+    <div class="col-12" style="background-color:lavender;"  >
+   <h2> {{carPart.name | uppercase}} </h2>
+   <img src ={{carPart.image}} height="250" width="350" />
+   <p> {{carPart.price| currency:'SGD'}} </p>
+   <button class="btn btn-danger"  [routerLink]="['/admin']" (click)="deletePost(carPart._id)" >Delete</button>
+   <button class="btn btn-success"  [routerLink]="['subhome2', carPart._id]" (click)="increaseQuote(carPart._id)" >Update Product</button>
+   </div>
+   </div>
+   </div>
+   </div>
