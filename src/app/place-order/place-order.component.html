@@ -1,0 +1,39 @@
+<button class="btn btn-primary" (click)="getRoad()">Roadmap</button>
+<button class="btn btn-primary" (click)="getSat()" >Satelite</button>
+<button class="btn btn-primary" (click)="getHybrid()">Hybrid</button>
+<agm-map [zoom]="18" [latitude]='lat' [longitude]='lng' [mapTypeId]='googleMapType' (mapClick)="onChooseLocation($event)">
+  <agm-marker [latitude]="lat" [longitude]="lng" >
+    <agm-info-window>
+      <strong>AAA IT Product</strong>
+     
+    </agm-info-window>
+  </agm-marker>
+ 
+</agm-map>
+<form [formGroup]="myForm"  novalidate (ngSubmit)="sendInvoice()">
+    
+    <div class="container">
+     
+     <div class="row">
+     <div class="col-sm-6 col-sm-offset-3">
+     <p><input formControlName="name" id=”name” placeholder="Username"></p>
+     </div>
+     </div>
+     <div class="row">
+     <div class="col-sm-6 col-sm-offset-3">
+     <p><input type='text' formControlName="email" id="email" placeholder="your email"></p>
+     </div>
+     </div>
+
+    
+        
+  
+
+     <div class="row">
+         
+     <div class="col-sm-6 col-sm-offset-3">
+     <p><button >Pay</button></p>
+     </div>
+     </div>
+    </div>
+    </form>

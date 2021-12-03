@@ -1,0 +1,40 @@
+<button class="btn btn-primary" routerLink="/logout">Logout</button>
+<form [formGroup]="myForm"  novalidate (ngSubmit)="onSubmit()">
+    <div class="container">
+     
+     <div class="row">
+     <div class="col-sm-6 col-sm-offset-3">
+     <p><input formControlName="name" id=”name” placeholder="Username" disabled ></p>
+     </div>
+     </div>
+     <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+        <p><input formControlName="email" id="name" placeholder="email" disabled></p>
+        </div>
+        </div>
+     <div class="row">
+     <div class="col-sm-6 col-sm-offset-3">
+     <p><input type='password' formControlName="password" id=”password” placeholder="New Password"></p>
+     </div>
+     </div>
+   
+  
+     <div class="row">
+         
+     <div class="col-sm-6 col-sm-offset-3">
+     <p><button class="btn btn-primary" type="submit" >Change Password</button> </p>
+     </div>
+     </div>
+    </div>
+    </form>
+    <div  class="row" >
+ <div *ngFor = "let carPart of product">
+     <div class="col-12" style="background-color:lavender;"  >
+        <h2> {{carPart.name | uppercase}} </h2>
+        <img src ={{carPart.image}} height="250" width="350" />
+        <p> {{carPart.price| currency:'SGD'}} </p>
+       
+       
+</div>
+</div>
+</div>

@@ -1,0 +1,14 @@
+<div  class="row" >
+    <div class="col-12" style="background-color:lavender;" >
+   <h2> {{posts.title | uppercase}} </h2>
+   <img src ={{posts.image}} height="250" width="350" />
+   <p> {{posts.price| currency:'SGD'}} </p>
+   <p> {{posts.description}} </p>
+   <p>InStock:{{posts.category}}</p>
+   <p>Quantity:  <button class="btn btn-primary" (click)="upQuantity()">+</button>{{quantity}} <button class="btn btn-primary" (click)="downQuantity()">-</button> </p>
+  
+   
+
+   <button class="btn btn-primary"  [routerLink]="['', 'post']" (click)="addCart()">Add to cart</button>
+   </div>
+   </div>
