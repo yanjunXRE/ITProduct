@@ -13,8 +13,101 @@
             <img src ={{carPart.image}} height="250" width="350" />
             <p> {{carPart.price| currency:'SGD'}} </p>
             <button class="btn btn-primary"  [routerLink]="['/details', carPart.productId]">Check product</button>
-           
+            <button type="button" data-target="#addFeedbackModal" (click)="onNewFeedbackModal(carPart)" data-toggle="modal" class="btn btn-success">Add</button> 
+            <button type="button" data-target="#viewFeedbackModal" (click)="onViewFeedbackModal(carPart)" data-toggle="modal" class="btn btn-warning ml-2">Review</button> 
    </div>
 </div>
    </div>
+</div>
+<!--View Feedback Modal-->
+<div class="modal fade" id="viewFeedbackModal" tabindex="-1" role="dialog" aria-labelledby="viewFeedbackModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewFeedbackModalLabel">View Feedback</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <table class="table">
+		<thead>
+			<th scope="col">Comments</th>
+			<th scope="col">Ratings</th>
+         <th scope="col">Controls</th>
+		</thead>
+		<tbody>
+			<tr *ngFor="let f of feedbackList">
+				<td>{{ f.description }}</td>
+            <td>{{ f.rating }}</td>
+				<td>
+					<button type="button" data-target="#updateFeedbackModal" (click)="onUpdateFeedbackModal(f)" data-toggle="modal" class="btn btn-info">Edit</button>  
+					 <button type="button" (click)="onDeleteFeedback(f)" class="btn btn-danger ml-2">Delete</button> 
+				</td>
+			</tr>
+		</tbody>
+	</table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--New Feedback Modal-->
+<div class="modal fade" id="addFeedbackModal" tabindex="-1" role="dialog" aria-labelledby="addFeedbackModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addFeedbackModalLabel">Add New Feedback</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="newFeedbackForm">
+					<input type="hidden" class="form-control" formControlName="productId">
+               <input type="text" class="form-control mt-3" placeholder="username" formControlName="username" disabled>
+
+                    <input type="text" class="form-control mt-3" placeholder="Title" formControlName="productname" disabled>
+                    <input type="text" class="form-control mt-3" placeholder="Comments" formControlName="description" required>
+                    <input type="number" class="form-control mt-3" placeholder="Rating" formControlName="rating" required>
+                </form>
+ 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" (click)="onAddFeedback()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Update Feedback Modal-->
+<div class="modal fade" id="updateFeedbackModal" tabindex="-1" role="dialog" aria-labelledby="updateFeedbackModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateFeedbackModalLabel">Update Feedback</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="updateFeedbackForm">
+                 
+                    <input type="text" class="form-control mt-3" placeholder="Comments" formControlName="description" required>
+                    <input type="number" class="form-control mt-3" placeholder="Rating" formControlName="rating" required>
+                </form>
+ 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" (click)="onUpdateFeedback()">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>

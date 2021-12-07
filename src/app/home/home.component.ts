@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ItserviceService } from '../ItService.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { myProduct } from '../myproduct';
 // import { myProduct } from '../myProduct';
 @Component({
@@ -10,7 +11,11 @@ import { myProduct } from '../myproduct';
 export class HomeComponent implements OnInit {
   title = 'ITProduct';
   product: any = [];
+  feedbackList:any=[]
   loadproduct: any = [];
+user:string;
+  newFeedbackForm: FormGroup;
+  updateFeedbackForm: FormGroup;
 //  product = [ {
 //   "id": 1,
 //   "name": "HP Pavilion 15",
@@ -36,11 +41,27 @@ export class HomeComponent implements OnInit {
 //   "image": "./assets/it3.jpg"
 //  } ];
 
- constructor(private postsService: ItserviceService) {
+ constructor(private postsService: ItserviceService,private formBuilder: FormBuilder) {
   //Retrieve posts from the API
   this.postsService.getUsers().subscribe(product => {
   this.product = product;
   this.loadproduct = product;
+  });
+  this.newFeedbackForm = this.formBuilder.group({
+    productId: [''],
+    username:[''],
+    productname: ['', Validators.required],
+    description: ['', Validators.required],
+    rating: ['', Validators.required]
+  });
+
+  this.updateFeedbackForm = this.formBuilder.group({
+    reviewId: [''],
+    username:[''],
+    productId: [''],
+    productname: [''],
+    description: ['', Validators.required],
+    rating: ['', Validators.required]
   });
  }
  initializeItems(): void{
@@ -61,11 +82,50 @@ export class HomeComponent implements OnInit {
     }
   });
 }
- 
+ // Feedback
+
+ public onViewFeedbackModal(book: any) {
+  this.postsService.retrieveFeedbackByProductname(book).subscribe((data: any) => {
+    this.feedbackList = data;
+    console.log(data);
+  });
+}
+
+public onAddFeedback() {
+  this.postsService.addNewFeedback(this.newFeedbackForm.value).subscribe(res => {
+    console.log('Feedback Created');
+    location.reload();
+  })
+}
+
+public onDeleteFeedback(feedback: any) {
+  this.postsService.deleteFeedbackById(feedback).subscribe(res => {
+    console.log('Feedback Deleted');
+    location.reload();
+  })
+}
+
+public onUpdateFeedbackModal(feedback: any) {
+  this.updateFeedbackForm.patchValue(feedback);
+}
+
+public onNewFeedbackModal(book: any) {
+  this.newFeedbackForm.patchValue({ productID: book.productId,username:this.user, productname: book.name });
+}
+
+public onUpdateFeedback() {
+  this.postsService.updateFeedbackById(this.updateFeedbackForm.value).subscribe(res => {
+    console.log('Feedbacks Updated');
+    location.reload();
+  })
+}
 //  getHeroes(): void {
 //   this.posts = this.postsService.getUsers();
 // }
   ngOnInit(): void {
+    if(this.user==undefined){
+      this.user="GUEST"
+         }
     // this.getHeroes();
   }
 

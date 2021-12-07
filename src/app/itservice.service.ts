@@ -15,17 +15,17 @@ export class ItserviceService {
   }
   //create function to retrieve books with eStoreService Web API end point
  
-
+urlFeedback:string="https://reviewservice20211123162505.azurewebsites.net/api/reviews/"
  
   url:string = "https://productservice20211122194529.azurewebsites.net/api/products";
 
   //quotesUrl: string = "https://localhost:44316/gateway/orders/";
-  cart:string="https://orderservice20211122190931.azurewebsites.net/api/orders/"
+  cart:string="https://orderservice20211203205419.azurewebsites.net/api/orders"
   carts:string="http://localhost:3000/api/carts"
   cartsDel:string="http://localhost:3000/api/cartDelete"
   email:string="http://localhost:3000/api/sendEmail"
   order:string="http://localhost:3000/api/order"
-  
+ 
  
   getUsers() {
   return this.http.get<any[]>(this.url);
@@ -35,16 +35,12 @@ export class ItserviceService {
     return this.http.get<any[]>(this.url+"/"+name);
    // return this.product;
     }
-  getCart(name) {
-    return this.http.get<any[]>(this.cart+"/"+name);
+  getCart(name,status) {
+    return this.http.get<any[]>(this.cart+"/"+name+'/'+status);
    // return this.product;
     }
-    getOrder(name) {
-      return this.http.get<any[]>(this.order+"/"+name);
-     // return this.product;
-      }
     getOneCart(id:number) {
-      return this.http.get<any[]>(this.carts + "/" + id);
+      return this.http.get<any[]>(this.cart + "/byone/" + id);
      // return this.product;
       }
     addCart(payload:any) {
@@ -60,8 +56,8 @@ export class ItserviceService {
       return this.http.post<any[]>(this.email, { 'email': name});
      
      }
-     updateCart(id: number,quantity:number) {
-      return this.http.put<any[]>(this.cart + "/" + id, {'quantity': quantity});
+     updateCart(payload:any) {
+      return this.http.put<any[]>(this.cart + "/" + payload.orderID,payload, {headers: this.headers});
 }
 deleteCart(id: number) {
   return this.http.delete<any[]>(this.cart + "/" + id);
@@ -87,5 +83,24 @@ deleteCart(id: number) {
       updateUser(payload: any) {
         return this.http.put(this.url + '/' + payload.productId, payload,
         { headers: this.headers });
+}
+public retrieveFeedbackByProductname(payload: any) {
+  return this.http.get(this.urlFeedback +'/'+ payload.name,
+    { headers: this.headers });
+}
+
+public addNewFeedback(payload: any) {
+  return this.http.post(this.urlFeedback, payload,
+    { headers: this.headers });
+}
+
+public deleteFeedbackById(payload: any) {
+  return this.http.delete(this.urlFeedback + '/' + payload.reviewId,
+    { headers: this.headers });
+}
+
+public updateFeedbackById(payload: any) {
+  return this.http.put(this.urlFeedback + '/' + payload.reviewId, payload,
+    { headers: this.headers });
 }
 }

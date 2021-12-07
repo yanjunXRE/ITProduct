@@ -27,11 +27,11 @@ export class UserComponent implements OnInit {
     private authService: AuthService,private router: Router,private postsService: ItserviceService  ) 
 {
       //Retrieve posts from the API
-      this.postsService.getOrder(sessionStorage.getItem('LoggedIn').toUpperCase()).subscribe(product => {
-      this.product = product;
-      this.loadproduct = product;
-      console.log(this.product)
-      });
+      // this.postsService.getOrder(sessionStorage.getItem('LoggedIn').toUpperCase()).subscribe(product => {
+      // this.product = product;
+      // this.loadproduct = product;
+      // console.log(this.product)
+      // });
      }
    ngOnInit() {
   

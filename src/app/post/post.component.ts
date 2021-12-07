@@ -12,6 +12,7 @@ export class PostComponent implements OnInit {
   posts: any = [];
   selected:any={}
   user;
+  status='pending'
   myForm: FormGroup;
   constructor(private postsService: PostsService, private fb: FormBuilder,private ItserviceService:ItserviceService) {
   // Retrieve posts from the API
@@ -23,8 +24,9 @@ export class PostComponent implements OnInit {
   }else{
     this.user="GUEST"
   }
-  this.ItserviceService.getCart(this.user).subscribe(posts => {
+  this.ItserviceService.getCart(this.user,this.status).subscribe(posts => {
      this.posts = posts;
+     this.posts
   });
   }
 
@@ -55,7 +57,7 @@ export class PostComponent implements OnInit {
         this.selected.quantity++;
         console.log(this.selected.quantity)
         console.log(id)
-        this.ItserviceService.updateCart(id, this.selected.quantity).subscribe(posts => {
+        this.ItserviceService.updateCart(this.selected).subscribe(posts => {
           location.reload();
        
           });
@@ -69,7 +71,7 @@ export class PostComponent implements OnInit {
         this.selected.quantity--;
         console.log(this.selected.quantity)
         
-        this.ItserviceService.updateCart(id, this.selected.quantity).subscribe(posts => {
+        this.ItserviceService.updateCart(this.selected).subscribe(posts => {
           location.reload();
     
           });

@@ -12,11 +12,13 @@ import {AgmCoreModule} from '@agm/core'
 })
 export class PlaceOrderComponent implements OnInit {
   myForm: FormGroup;
+  posts:any;
+  updateStatus:any={}
 user={
 name:'tanyanjun14@gmail.com',
 email:'tanyanjun14@gmail.com'
 }
-
+status="success"
 cart:any=[]
   constructor(private fb: FormBuilder,private http:UserService,private it:ItserviceService,private router:Router) { }
   lat = 1.297161;
@@ -39,7 +41,7 @@ console.log(event)
   ngOnInit(): void {
   
       if(sessionStorage.getItem('LoggedIn')){
-        this.it.getCart(sessionStorage.getItem('LoggedIn').toUpperCase()).subscribe(results => {
+        this.it.getCart(sessionStorage.getItem('LoggedIn').toUpperCase(),this.status).subscribe(results => {
           this.cart=results;
            console.log(this.cart)
          });
@@ -66,14 +68,17 @@ sendInvoice(){
   
   
 
-  }else{
-    this.it.deleteAllCart("GUEST").subscribe(results => {})
-  }
-  this.it.sendEmail(this.myForm.value.email).subscribe(results => {
+  }else{  this.it.getCart("GUEST","pending").subscribe(posts => {
+    this.posts = posts;
    
-    alert("email sent")
-    });
-    alert("Payment Successful")
-    this.router.navigateByUrl('/home');
+    for (let i of this.posts){
+      i.status='success'
+      console.log(i)
+    this.it.updateCart(i).subscribe(posts => {
+      });
+    }
+ });
+    
+   this.router.navigateByUrl('/home');
 }
-}
+}}

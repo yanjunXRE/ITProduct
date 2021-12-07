@@ -6,11 +6,11 @@
         <div  class="row" >
         <div *ngFor = "let carPart of posts">
             <div class="col-12" style="background-color:lavender;"  >
-   <h2> {{carPart.name | uppercase}} </h2>
-   <img src ={{carPart.image}} height="250" width="350" />
-   <p> {{carPart.price| currency:'SGD'}} </p>
-   <p> Quantity: <button class="btn btn-primary" (click)="upQuantity(carPart._id)">+</button>{{carPart.quantity}} <button class="btn btn-primary" (click)="downQuantity(carPart._id)">-</button></p>
-   <button class="btn btn-danger"  (click)="deleteCart(carPart._id)" >Delete</button>
+   <h2> {{carPart.productname | uppercase}} </h2>
+   <img src ={{carPart.productImage}} height="250" width="350" />
+   <p> {{carPart.productPrice| currency:'SGD'}} </p>
+   <p> Quantity: <button class="btn btn-primary" (click)="upQuantity(carPart.orderID)">+</button>{{carPart.quantity}} <button class="btn btn-primary" (click)="downQuantity(carPart.orderID)">-</button></p>
+   <button class="btn btn-danger"  (click)="deleteCart(carPart.orderID)" >Delete</button>
    </div>
    </div>
 </div>
