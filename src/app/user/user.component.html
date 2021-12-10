@@ -14,7 +14,7 @@
         </div>
      <div class="row">
      <div class="col-sm-6 col-sm-offset-3">
-     <p><input type='password' formControlName="password" id=”password” placeholder="New Password"></p>
+     <p><input type='password' formControlName="password" id=”password” placeholder="Type here if New Password"></p>
      </div>
      </div>
      <div class="row">
@@ -35,7 +35,7 @@
       <div class="row">
       <div class="col-sm-6 col-sm-offset-3"  >
       <p><input formControlName="type" id=”password” type="text"
-     placeholder="Your type"></p>
+     placeholder="Your type" disabled></p>
       </div>
       </div>
       <div class="row">
@@ -48,6 +48,7 @@
          
      <div class="col-sm-6 col-sm-offset-3">
      <p><button class="btn btn-primary" type="submit" >Update</button> 
+        <p><button class="btn btn-primary" type="button" (click)="delete()">Delete Account</button> 
       <button class="btn btn-primary"type="button" (click)="reset()" >Reset</button> </p>
      </div>
      </div>

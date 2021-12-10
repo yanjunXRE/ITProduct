@@ -45,7 +45,7 @@
 				<td>{{ f.description }}</td>
             <td>{{ f.rating }}</td>
             <td>{{ f.username }}</td>
-				<td>
+				<td *ngIf="f.username==this.user">
 					<button type="button" data-target="#updateFeedbackModal" (click)="onUpdateFeedbackModal(f)" data-toggle="modal" class="btn btn-info">Edit</button>  
 					 <button type="button" (click)="onDeleteFeedback(f)" class="btn btn-danger ml-2">Delete</button> 
 				</td>

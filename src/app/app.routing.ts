@@ -18,15 +18,17 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import {AuthGuard} from './auth.guard';
 
 const routes: Routes = [
- { path: 'home', component: HomeComponent}, {path:'',component:HomeComponent}
-     ,{ path: 'about', component: AboutComponent },{ path: 'photos', component: PhotoComponent },{ path: 'api-detail/:_id', component:ApiDetailComponent},
-     { path: 'login', component:LoginComponent}, { path: 'register', component:RegisterComponent},{ path: 'forgotpassword', component: ForgotpasswordComponent},{path:'placeOrder',component:PlaceOrderComponent},
-     { path: 'logout', component:LogoutComponent},{path:'placeOrder',component:PlaceOrderComponent},{path:'placeOrder',component:PlaceOrderComponent},
-     { path: 'user', component:UserComponent}, 
-     { path: 'admin', component:AdminComponent,children:[{path:'subhome2',component:Subhome2Component},{path:'subhome2/:_id',component:Subhome2Component}],
-     },{path: 'post', component: PostComponent},
-// redirect to home page on load
- { path: '', component: HomeComponent, pathMatch: 'full'},{ path: 'details/:_id', component: DetailsComponent}];
+    { path: 'home', component: HomeComponent}, {path:'',component:HomeComponent}
+        ,{ path: 'about', component: AboutComponent },{ path: 'photos', component: PhotoComponent },{ path: 'api-detail/:_id', component:ApiDetailComponent},
+        { path: 'login', component:LoginComponent}, { path: 'register', component:RegisterComponent},{ path: 'forgotpassword', component: ForgotpasswordComponent},{path:'placeOrder',component:PlaceOrderComponent},
+        { path: 'logout', component:LogoutComponent},{path:'placeOrder',component:PlaceOrderComponent},{path:'placeOrder',component:PlaceOrderComponent},
+        { path: 'user', component:UserComponent,canActivate: [AuthGuard], data:
+        {permission: {only: ["user", "admin"]}}}, 
+        { path: 'admin', component:AdminComponent,children:[{path:'subhome2',component:Subhome2Component},{path:'subhome2/:_id',component:Subhome2Component}],
+         canActivate: [AuthGuard], data:
+        {permission: {only: ["admin"]}}},{path: 'post', component: PostComponent},
+   // redirect to home page on load
+    { path: '', component: HomeComponent, pathMatch: 'full'},{ path: 'details/:_id', component: DetailsComponent}];
 @NgModule({
  imports: [RouterModule.forRoot(routes)],
  exports: [RouterModule]

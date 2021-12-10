@@ -5,6 +5,8 @@ import {  UserserviceService } from '../userservice.service';
 import {  myUser } from '../myUser';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import MD5 from "crypto-js/md5";
+
 @Component({
   selector: 'app-forgotpassword',
   templateUrl: './forgotpassword.component.html',
@@ -36,7 +38,7 @@ export class ForgotpasswordComponent implements OnInit {
     console.log(this.myForm.value.name)
     this.authService.userRegist(this.myForm.value.name).subscribe(data=>{
 this.data=data;
-this.data[0].password=this.myForm.value.password
+this.data[0].password=MD5(this.myForm.value.password).toString()
 console.log(this.data)
 this.authService.updateInfo(this.data[0]).subscribe(data => {
   

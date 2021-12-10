@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +24,9 @@ updateInfo(payload:any) {
 }
 userRegist(username:string){
   return this.http.get<any[]>(this.regUserUrl+'/userRegistered/'+username);
+}
+userDelete(username:string){
+  return this.http.delete<any[]>(this.regUserUrl+'/'+username);
 }
 setSecureToken(secure_token: string, id:string,other:any) {
 sessionStorage.setItem("LoggedIn", secure_token)

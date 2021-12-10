@@ -6,6 +6,7 @@ import {  myUser } from '../myUser';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { ItserviceService } from '../ItService.service';
+import MD5 from "crypto-js/md5";
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -42,7 +43,7 @@ obj = JSON.parse(sessionStorage.getItem('other'));
 
       });
     
-      this.myForm.patchValue({ password: this.obj.password,phoneno:this.obj.phoneno, address: this.obj.address,image:this.obj.image,type:this.obj.type,credit:this.obj.credit });
+      this.myForm.patchValue({phoneno:this.obj.phoneno, address: this.obj.address,image:this.obj.image,type:this.obj.type,credit:this.obj.credit });
       this.postsService.getCart(this.myForm.value.username,this.status).subscribe(product => {
       this.product = product;
       this.loadproduct = product;
@@ -51,6 +52,11 @@ obj = JSON.parse(sessionStorage.getItem('other'));
      }
      reset(){
        location.reload()
+     }
+     delete(){
+      this.authService.userDelete(this.obj.accountId).subscribe((data: any) => {
+        this.router.navigateByUrl('/logout');
+      });
      }
      onKey(event) {
       // this.initializeItems();
@@ -72,13 +78,19 @@ obj = JSON.parse(sessionStorage.getItem('other'));
   
  onSubmit() {
   try{
+    if(this.myForm.value.password==""){
+      console.log(this.obj.password)
+      this.myForm.value.password=this.obj.password
+    }else{
+      this.myForm.value.password=MD5( this.myForm.value.password).toString()
+    }
     sessionStorage.setItem('other',JSON.stringify(this.myForm.value))
     
     console.log(sessionStorage.getItem('other'))
   this.authService.updateInfo(
   this.myForm.value).subscribe(data => {
   
-    alert("Password change")
+    alert("Account Updated")
   location.reload()
   });
 }

@@ -5,7 +5,7 @@ import {  UserserviceService } from '../userservice.service';
 import {  myUser } from '../myUser';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-
+import MD5 from "crypto-js/md5";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -33,12 +33,13 @@ export class LoginComponent implements OnInit {
  onSubmit() {
    
   this.authService.authUser(this.myForm.value.name.toUpperCase( ),
-  this.myForm.value.password).subscribe(data => {
+  MD5(this.myForm.value.password).toString()).subscribe(data => {
   this.results = data;
   console.log(this.results[0])
   if (this.results!='')
   {
   this.authService.setSecureToken(this.myForm.value.name,this.results[0].accountId,this.results[0]);
+  this.authService.setUserRole(this.results[0].type);
   this.authService.setEmailToken(this.results[0].email)
  // this.authService.setUserRole(this.results[0].role);
   alert("Login Successful");

@@ -154,8 +154,10 @@ public onUpdateFeedback() {
 //   this.posts = this.postsService.getUsers();
 // }
   ngOnInit(): void {
-    if(this.user==undefined){
+    if(sessionStorage.getItem('UserRole')==undefined){
       this.user="GUEST"
+         }else{
+           this.user=sessionStorage.getItem('LoggedIn')
          }
     // this.getHeroes();
   }

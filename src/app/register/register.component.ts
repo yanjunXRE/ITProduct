@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
 import { passwordMatchValidator } from '../custom.validator';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { userUsed } from '../custom.valid2';
+import MD5 from "crypto-js/md5";
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -17,6 +18,7 @@ title="Register"
 role="user";
 user:any=[]
 used:boolean;
+
   constructor(private fb: FormBuilder, private modalService: NgbModal, private authService: AuthService,
  private router: Router) {
   // this.authService.userRegist("TANRU").subscribe(results => {
@@ -54,18 +56,23 @@ used:boolean;
     }
  
   ngOnInit() {
-    this.myForm = this.fb.group({
+    
+    this.myForm = this.fb
+    .group({
       username: ['', Validators.required],
       email: ['', Validators.required],
       phoneno: ['', [Validators.required, Validators.maxLength(8)]],
       address: ['', Validators.required],
-     
+     type:['', Validators.required],
         password: ['', [Validators.required,
      Validators.minLength(8)]]}) 
       
   }
   onSubmit() {
+    console.log(MD5("Message").toString());
+    this.myForm.value.password=MD5( this.myForm.value.password).toString()
     if(this.myForm.value.action="register"){
+      
  this.authService.regUser(this.myForm.value).subscribe();
   alert("Registration Successful")
  this.router.navigateByUrl('/login');
