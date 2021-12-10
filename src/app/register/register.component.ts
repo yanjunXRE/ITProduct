@@ -40,10 +40,10 @@ used:boolean;
      valuechange(newValue) {
      newValue=newValue.toUpperCase();
       console.log(newValue)
-      this.authService.userRegist(newValue.toUpperCase()).subscribe(results => {
+      this.authService.userRegist(newValue).subscribe(results => {
         this.user=results;
         console.log(this.user)
-        if (this.user!=null)  {
+        if (this.user!='')  {
           this.used=true
         console.log(this.used)}else{
           this.used=false
@@ -55,19 +55,18 @@ used:boolean;
  
   ngOnInit() {
     this.myForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      pwSet : this.fb.group ({
-     password: ['', [Validators.required,
-     Validators.minLength(8)]],
-     password2: ['', [Validators.required]]
-      }, {validators: passwordMatchValidator}) 
-      });
+      username: ['', Validators.required],
+      email: ['', Validators.required],
+      phoneno: ['', [Validators.required, Validators.maxLength(8)]],
+      address: ['', Validators.required],
+     
+        password: ['', [Validators.required,
+     Validators.minLength(8)]]}) 
+      
   }
   onSubmit() {
     if(this.myForm.value.action="register"){
- this.authService.regUser(this.myForm.value.name,
-  this.myForm.get('pwSet.password').value, this.role,this.myForm.value.email).subscribe();
+ this.authService.regUser(this.myForm.value).subscribe();
   alert("Registration Successful")
  this.router.navigateByUrl('/login');
     }

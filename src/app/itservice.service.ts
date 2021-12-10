@@ -21,6 +21,7 @@ urlFeedback:string="https://reviewservice20211123162505.azurewebsites.net/api/re
 
   //quotesUrl: string = "https://localhost:44316/gateway/orders/";
   cart:string="https://orderservice20211203205419.azurewebsites.net/api/orders"
+  
   carts:string="http://localhost:3000/api/carts"
   cartsDel:string="http://localhost:3000/api/cartDelete"
   email:string="http://localhost:3000/api/sendEmail"
@@ -39,6 +40,10 @@ urlFeedback:string="https://reviewservice20211123162505.azurewebsites.net/api/re
     return this.http.get<any[]>(this.cart+"/"+name+'/'+status);
    // return this.product;
     }
+    getCartByProduct(name,status,product) {
+      return this.http.get<any[]>(this.cart+"/"+name+'/'+status+"/"+product);
+     // return this.product;
+      }
     getOneCart(id:number) {
       return this.http.get<any[]>(this.cart + "/byone/" + id);
      // return this.product;
@@ -88,7 +93,14 @@ public retrieveFeedbackByProductname(payload: any) {
   return this.http.get(this.urlFeedback +'/'+ payload.name,
     { headers: this.headers });
 }
-
+public retrieveFeedbackByProductnameFilter(payload,filter) {
+  if(filter!=''){
+  return this.http.get(this.urlFeedback +'/'+ payload+'/'+filter)
+  }else{
+    return this.http.get(this.urlFeedback +'/'+ payload)
+  
+  }
+}
 public addNewFeedback(payload: any) {
   return this.http.post(this.urlFeedback, payload,
     { headers: this.headers });

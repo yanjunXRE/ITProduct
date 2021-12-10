@@ -11,8 +11,10 @@ import { myProduct } from '../myproduct';
 export class HomeComponent implements OnInit {
   title = 'ITProduct';
   product: any = [];
+  productname;
   feedbackList:any=[]
   loadproduct: any = [];
+
 user:string;
   newFeedbackForm: FormGroup;
   updateFeedbackForm: FormGroup;
@@ -67,26 +69,55 @@ user:string;
  initializeItems(): void{
   this.product= this.loadproduct;
 }
- onKey(event) {
-   this.initializeItems();
-  const searchTerm = event.srcElement.value;
-  if(!searchTerm){
-    return;
-  }
-  this.product = this.product.filter(currentProducts=>{
-    if(currentProducts.name && searchTerm){
-      if(currentProducts.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
-        return true;
-      }
-      return false;
-    }
-  });
+//  onKey(event) {
+//    this.initializeItems();
+//   const searchTerm = event.srcElement.value;
+//   if(!searchTerm){
+//     return;
+//   }
+//   this.product = this.product.filter(currentProducts=>{
+//     if(currentProducts.name && searchTerm){
+//       if(currentProducts.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1){
+//         return true;
+//       }
+//       return false;
+//     }
+//   });
+// }
+onKey(event) {
+ // this.initializeItems();
+ const searchTerm = event.srcElement.value;
+ if(!searchTerm || searchTerm==null){
+  this.postsService.getUsers().subscribe(product => {
+    this.product = product;
+    });
+ }
+ this.postsService.getSearch(searchTerm).subscribe((data: any) => {
+  this.product = data;
+  console.log(data);
+});
 }
+
+onKey2(event) {
+  // this.initializeItems();
+  const searchTerm = event.srcElement.value;
+  console.log(sessionStorage.getItem('reviewbyproduct'))
+ console.log(sessionStorage.getItem('reviewbyproduct'))
+ 
+  this.postsService.retrieveFeedbackByProductnameFilter(sessionStorage.getItem('reviewbyproduct'),searchTerm).subscribe((data: any) => {
+   this.feedbackList = data;
+   
+ });
+ console.log(searchTerm);
+
+ }
  // Feedback
 
  public onViewFeedbackModal(book: any) {
+   sessionStorage.setItem('reviewbyproduct',book.name)
   this.postsService.retrieveFeedbackByProductname(book).subscribe((data: any) => {
     this.feedbackList = data;
+   
     console.log(data);
   });
 }

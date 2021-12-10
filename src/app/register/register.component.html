@@ -9,9 +9,9 @@
    <div class="container">
     <div class="row">
         <div *ngIf="myForm.invalid ||used==true" class ="col-sm-6 col-sm-offset-3">
-       <p *ngIf="myForm.controls.name.dirty &&
-        myForm.controls.name.hasError('required')">
-       * Name is required!
+       <p *ngIf="myForm.controls.username.dirty &&
+        myForm.controls.username.hasError('required')">
+       * Username is required!
        </p>
        <p *ngIf="used==true">
         * Name is used!
@@ -24,22 +24,32 @@
         myForm.controls.email.hasError('email')">
        * Email is invalid!
        </p>
-       <p *ngIf="myForm.controls.pwSet.controls.password.dirty &&
-       myForm.controls.pwSet.controls.password.hasError('required')">
+       <p *ngIf="myForm.controls.phoneno.dirty &&
+       myForm.controls.phoneno.hasError('required')">
+       * Phone No is required!
+      </p>
+      <p *ngIf="myForm.controls.phoneno.dirty &&
+      myForm.controls.phoneno.hasError('maxlength')">
+      * Phone No must have a max of 8 characters!
+      </p>
+      <p *ngIf="myForm.controls.address.dirty &&
+      myForm.controls.address.hasError('required')">
+      * Address is required!
+     </p>
+       <p *ngIf="myForm.controls.password.dirty &&
+       myForm.controls.password.hasError('required')">
        * Password is required!
        </p>
-       <p *ngIf="myForm.controls.pwSet.controls.password.dirty &&
-       myForm.controls.pwSet.controls.password.hasError('minlength')">
+       <p *ngIf="myForm.controls.password.dirty &&
+       myForm.controls.password.hasError('minlength')">
        * Password must have a minimum of 8 characters!
        </p>
-       <p *ngIf="myForm.controls.pwSet.hasError('notmatch')">
-       * Password does not match!
-        </p>
+     
         </div>
        </div>
     <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-    <p><input formControlName="name" id=”name” placeholder="Your name" (ngModelChange)="valuechange($event)" /></p>
+    <p><input formControlName="username" id="username" placeholder="Your username" (ngModelChange)="valuechange($event)" /></p>
     </div>
     </div>
     <div class="row">
@@ -49,24 +59,23 @@
     </div>
     </div>
     <div class="row">
-    <div class="col-sm-6 col-sm-offset-3" formGroupName="pwSet" >
+        <div class="col-sm-6 col-sm-offset-3">
+        <p><input formControlName="phoneno" id='phoneno' placeholder="Your phone no"></p>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+            <p><input formControlName="address" id='address' placeholder="Your address"></p>
+            </div>
+            </div>
+    <div class="row">
+    <div class="col-sm-6 col-sm-offset-3"  >
     <p><input formControlName="password" id=”password” type="password"
    placeholder="Your password"></p>
     </div>
     </div>
-    <div formGroupName="pwSet" class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-        <p><input formControlName="password2" id = "password2" type="password"
-        placeholder="Re-type your password"></p>
-         </div>
-        </div>
-    <div class="row">
-        <div class ="col-sm-6 col-sm-offset-3">
-            <!-- To disable the register button depending on the agreed Boolean
-value  -->
-       
-        </div>
-       </div>
+  
+   
     <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
     <p><button class="btn btn-primary" type="submit"    [disabled]=" !myForm.valid||used==true" value='add'>Register</button> </p>

@@ -59,11 +59,16 @@ console.log(event)
   }
 sendInvoice(){
   if(sessionStorage.getItem('LoggedIn')){
- for (let cart of this.cart){
-   cart.status="success"
-  this.it.addCart(cart).subscribe(results => {})
-  }
-  this.it.deleteAllCart(sessionStorage.getItem('LoggedIn').toUpperCase()).subscribe(results => {})
+    this.it.getCart(sessionStorage.getItem('LoggedIn'),"pending").subscribe(posts => {
+      this.posts = posts;
+     
+      for (let i of this.posts){
+        i.status='success'
+        console.log(i)
+      this.it.updateCart(i).subscribe(posts => {
+        });
+      }
+   });
 
   
   
