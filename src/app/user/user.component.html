@@ -4,7 +4,7 @@
      
      <div class="row">
      <div class="col-sm-6 col-sm-offset-3">
-     <p><input formControlName="name" id=”name” placeholder="Username" disabled ></p>
+     <p><input formControlName="username" id=”name” placeholder="Username" disabled ></p>
      </div>
      </div>
      <div class="row">
@@ -17,22 +17,49 @@
      <p><input type='password' formControlName="password" id=”password” placeholder="New Password"></p>
      </div>
      </div>
-   
-  
+     <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+      <p><input formControlName="phoneno" id=”email” placeholder="Your phoneno"></p>
+      </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+          <p><input formControlName="address" id='phoneno' placeholder="Your address"></p>
+          </div>
+          </div>
+          <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+              <p><input formControlName="image" id='address' placeholder="Your image"></p>
+              </div>
+              </div>
+      <div class="row">
+      <div class="col-sm-6 col-sm-offset-3"  >
+      <p><input formControlName="type" id=”password” type="text"
+     placeholder="Your type"></p>
+      </div>
+      </div>
+      <div class="row">
+         <div class="col-sm-6 col-sm-offset-3"  >
+         <p><input formControlName="credit" id=”password” type="number"
+        placeholder="Your credit"></p>
+         </div>
+         </div>
      <div class="row">
          
      <div class="col-sm-6 col-sm-offset-3">
-     <p><button class="btn btn-primary" type="submit" >Change Password</button> </p>
+     <p><button class="btn btn-primary" type="submit" >Update</button> 
+      <button class="btn btn-primary"type="button" (click)="reset()" >Reset</button> </p>
      </div>
      </div>
     </div>
     </form>
     <div  class="row" >
+      <input  type="text" id="form1" class="form-control" placeholder="search"  (keyup)="onKey($event)"/>
  <div *ngFor = "let carPart of product">
      <div class="col-12" style="background-color:lavender;"  >
-        <h2> {{carPart.name | uppercase}} </h2>
-        <img src ={{carPart.image}} height="250" width="350" />
-        <p> {{carPart.price| currency:'SGD'}} </p>
+        <h2> {{carPart.productname | uppercase}} </h2>
+        <img src ={{carPart.productImage}} height="250" width="350" />
+        <p> {{carPart.productPrice| currency:'SGD'}} </p>
        
        
 </div>

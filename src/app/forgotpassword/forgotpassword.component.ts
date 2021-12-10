@@ -16,6 +16,7 @@ export class ForgotpasswordComponent implements OnInit {
   agreed = false;
   newItem : myUser;
   results: any = false;
+  data:any;
   title="Forgot Password"
   //dependency injection of FormBuilder as an object call fb and a NgbModal
  //call modalService
@@ -32,12 +33,18 @@ export class ForgotpasswordComponent implements OnInit {
   
  onSubmit() {
   try{
-  this.authService.forgot(this.myForm.value.name.toUpperCase( ),
-  this.myForm.value.password).subscribe(data => {
+    console.log(this.myForm.value.name)
+    this.authService.userRegist(this.myForm.value.name).subscribe(data=>{
+this.data=data;
+this.data[0].password=this.myForm.value.password
+console.log(this.data)
+this.authService.updateInfo(this.data[0]).subscribe(data => {
   
-    alert("Password change")
-    this.router.navigateByUrl('/login');
-  });
+  alert("Password change")
+  this.router.navigateByUrl('/login');
+});
+    })
+
 }
 catch{Error}{
 }

@@ -35,18 +35,19 @@ export class LoginComponent implements OnInit {
   this.authService.authUser(this.myForm.value.name.toUpperCase( ),
   this.myForm.value.password).subscribe(data => {
   this.results = data;
-  if (this.results[0].auth)
+  console.log(this.results[0])
+  if (this.results!='')
   {
-  this.authService.setSecureToken(this.myForm.value.name);
+  this.authService.setSecureToken(this.myForm.value.name,this.results[0].accountId,this.results[0]);
   this.authService.setEmailToken(this.results[0].email)
-  this.authService.setUserRole(this.results[0].role);
+ // this.authService.setUserRole(this.results[0].role);
   alert("Login Successful");
-  if(this.results[0].role=="user"){
+  // if(this.results[0].role=="user"){
+  // this.router.navigateByUrl('/user');
+  // }else{
+  //   this.router.navigateByUrl('/admin');
+  // }
   this.router.navigateByUrl('/user');
-  }else{
-    this.router.navigateByUrl('/admin');
-  }
- 
   } else{
    console.log("Wrong username or password")
    alert("Wrong username or password");

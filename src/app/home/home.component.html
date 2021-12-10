@@ -5,13 +5,14 @@
      <div class="container">
       
          <div  class="row" >
-            <input  type="search" id="form1" class="form-control" placeholder="search"  (keyup)="onKey($event)"/>
+            <input  type="text" id="form1" class="form-control" placeholder="search"  (keyup)="onKey($event)"/>
             
             <div *ngFor = "let carPart of product">
          <div class="col-12" style="background-color:lavender;"  >
             <h2> {{carPart.name | uppercase}} </h2>
             <img src ={{carPart.image}} height="250" width="350" />
             <p> {{carPart.price| currency:'SGD'}} </p>
+            <p>{{carPart.catogeries}}</p>
             <button class="btn btn-primary"  [routerLink]="['/details', carPart.productId]">Check product</button>
             <button type="button" data-target="#addFeedbackModal" (click)="onNewFeedbackModal(carPart)" data-toggle="modal" class="btn btn-success">Add</button> 
             <button type="button" data-target="#viewFeedbackModal" (click)="onViewFeedbackModal(carPart)" data-toggle="modal" class="btn btn-warning ml-2">Review</button> 
@@ -31,16 +32,19 @@
                 </button>
             </div>
             <div class="modal-body">
+                <input  type="text" id="form1" class="form-control" placeholder="search"  (keyup)="onKey2($event)"/>
                <table class="table">
 		<thead>
 			<th scope="col">Comments</th>
 			<th scope="col">Ratings</th>
+            <th scope="col">Username</th>
          <th scope="col">Controls</th>
 		</thead>
 		<tbody>
 			<tr *ngFor="let f of feedbackList">
 				<td>{{ f.description }}</td>
             <td>{{ f.rating }}</td>
+            <td>{{ f.username }}</td>
 				<td>
 					<button type="button" data-target="#updateFeedbackModal" (click)="onUpdateFeedbackModal(f)" data-toggle="modal" class="btn btn-info">Edit</button>  
 					 <button type="button" (click)="onDeleteFeedback(f)" class="btn btn-danger ml-2">Delete</button> 
