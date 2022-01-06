@@ -27,8 +27,10 @@ import { PlaceOrderComponent } from './place-order/place-order.component';
 import { AgmCoreModule } from '@agm/core';
 import { ApiDetailComponent } from './api-detail/api-detail.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { SafePipe } from './safe';
 @NgModule({
   declarations: [ 
+    SafePipe,
     AppComponent,
     HomeComponent,
     AboutComponent,

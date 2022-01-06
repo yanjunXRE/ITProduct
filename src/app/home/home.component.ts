@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   productname;
   feedbackList:any=[]
   loadproduct: any = [];
-
+url='https://www.youtube.com/embed/L678M0y86dw'
 user:string;
   newFeedbackForm: FormGroup;
   updateFeedbackForm: FormGroup;
